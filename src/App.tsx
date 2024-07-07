@@ -3,6 +3,7 @@ import SearchSection from './components/SearchSection';
 import { ItemType, StateType } from './types';
 import { URL } from './constants';
 import DisplaySection from './components/DisplaySection';
+import ErrorBoundary from './components/ErrorBoundary';
 
 class App extends Component {
   state: StateType = {
@@ -31,7 +32,7 @@ class App extends Component {
   render() {
     const { items } = this.state;
     return (
-      <>
+      <ErrorBoundary>
         <SearchSection
           parentStateItems={this.handleStateItems}
           parentStateIsLoaded={this.handleStateIsLoaded}
@@ -44,7 +45,7 @@ class App extends Component {
         ) : (
           <DisplaySection items={items} />
         )}
-      </>
+      </ErrorBoundary>
     );
   }
 }

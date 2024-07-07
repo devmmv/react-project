@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type ItemType = {
   name: string;
   height: string;
@@ -28,4 +30,7 @@ export type SearchSectionProps = {
 };
 export type DispalySectionProps = {
   items: ItemType[];
+};
+export type ErrorBoundaryProps = {
+  children: ReactNode;
 };

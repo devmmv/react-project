@@ -5,6 +5,7 @@ import { URL } from '../constants';
 class SearchSection extends Component<SearchSectionProps> {
   state = {
     query: localStorage.getItem('query') as string | '',
+    hasError: false,
   };
 
   sendItemsToParent = (items: ItemType[]) => {
@@ -15,6 +16,7 @@ class SearchSection extends Component<SearchSectionProps> {
   };
 
   render() {
+    if (this.state.hasError) throw new Error('Simulate Error!');
     return (
       <nav className="nav-bar">
         <div className="logo">
@@ -51,6 +53,12 @@ class SearchSection extends Component<SearchSectionProps> {
             }}
           >
             Search
+          </button>
+          <button
+            className="btn"
+            onClick={() => this.setState({ hasError: true })}
+          >
+            Get error
           </button>
         </div>
       </nav>
