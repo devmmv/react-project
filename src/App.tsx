@@ -36,7 +36,14 @@ class App extends Component {
           parentStateItems={this.handleStateItems}
           parentStateIsLoaded={this.handleStateIsLoaded}
         />
-        <DisplaySection items={items} />
+        {!this.state.isLoaded ? (
+          <div className="loader-box">
+            <div className="loader"></div>
+            <span className="loader-text">Loading...</span>
+          </div>
+        ) : (
+          <DisplaySection items={items} />
+        )}
       </>
     );
   }
