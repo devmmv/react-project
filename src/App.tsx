@@ -2,6 +2,7 @@ import { Component } from 'react';
 import SearchSection from './components/SearchSection';
 import { ItemType, StateType } from './types';
 import { URL } from './constants';
+import DisplaySection from './components/DisplaySection';
 
 class App extends Component {
   state: StateType = {
@@ -28,17 +29,14 @@ class App extends Component {
   }
 
   render() {
+    const { items } = this.state;
     return (
       <>
         <SearchSection
           parentStateItems={this.handleStateItems}
           parentStateIsLoaded={this.handleStateIsLoaded}
         />
-        <ol>
-          {this.state.items.map((item) => (
-            <li>{item.name}</li>
-          ))}
-        </ol>
+        <DisplaySection items={items} />
       </>
     );
   }

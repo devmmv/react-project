@@ -26,3 +26,6 @@ export type SearchSectionProps = {
   parentStateItems: (items: ItemType[]) => void;
   parentStateIsLoaded: (isLoaded: boolean) => void;
 };
+export type DispalySectionProps = {
+  items: ItemType[];
+};
