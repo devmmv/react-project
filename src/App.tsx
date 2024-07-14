@@ -1,53 +1,50 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import SearchSection from './components/SearchSection';
-import { ItemType, StateType } from './types';
-import { URL } from './constants';
-import DisplaySection from './components/DisplaySection';
+import { ItemType } from './types';
 import ErrorBoundary from './components/ErrorBoundary';
+import { Outlet, useSearchParams } from 'react-router-dom';
+import usePaginate from './hooks/usePaginate';
+import Pagination from './components/Pagination';
 
-class App extends Component {
-  state: StateType = {
-    query: localStorage.getItem('query') || '',
-    items: [],
-    isLoaded: false,
+const u = 'https://swapi.dev/api/people/';
+function App() {
+  const [items, setItems] = useState<ItemType[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const [searchParams] = useSearchParams();
+  const data = usePaginate(u, searchParams);
+
+  useEffect(() => {
+    setItems(data.items);
+    setIsLoaded(data.isLoaded);
+  }, [data.isLoaded, data.items]);
+
+  const handleStateItems = (items: ItemType[]) => {
+    setItems(items);
+  };
+  const handleStateIsLoaded = (isLoaded: boolean) => {
+    setIsLoaded(isLoaded);
   };
 
-  handleStateItems = (items: ItemType[]) => {
-    this.setState({ items });
-  };
-  handleStateIsLoaded = (isLoaded: boolean) => {
-    this.setState({ isLoaded });
-  };
-  componentDidMount() {
-    fetch(URL + this.state.query)
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({
-          isLoaded: true,
-          items: json.results,
-        });
-      });
-  }
-
-  render() {
-    const { items } = this.state;
-    return (
-      <ErrorBoundary>
-        <SearchSection
-          parentStateItems={this.handleStateItems}
-          parentStateIsLoaded={this.handleStateIsLoaded}
-        />
-        {!this.state.isLoaded ? (
-          <div className="loader-box">
-            <div className="loader"></div>
-            <span className="loader-text">Loading...</span>
-          </div>
-        ) : (
-          <DisplaySection items={items} />
-        )}
-      </ErrorBoundary>
-    );
-  }
+  return (
+    <ErrorBoundary>
+      <SearchSection
+        parentStateItems={handleStateItems}
+        parentStateIsLoaded={handleStateIsLoaded}
+      />
+      <Pagination setIsLoaded={setIsLoaded} data={data} />
+      {!isLoaded ? (
+        <div className="loader-box">
+          <div className="loader"></div>
+          <span className="loader-text">Loading...</span>
+        </div>
+      ) : (
+        <>
+          <Outlet context={items satisfies ItemType[]} />
+        </>
+      )}
+    </ErrorBoundary>
+  );
 }
 
 export default App;
