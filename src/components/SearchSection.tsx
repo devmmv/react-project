@@ -1,69 +1,65 @@
-import { Component } from 'react';
 import { ItemType, SearchSectionProps } from '../types';
 import { URL } from '../constants';
+import { ChangeEvent, useState } from 'react';
+import useSearchQuery from '../hooks/useSearchQuery';
+import { Link } from 'react-router-dom';
 
-class SearchSection extends Component<SearchSectionProps> {
-  state = {
-    query: localStorage.getItem('query') as string | '',
-    hasError: false,
+function SearchSection({
+  parentStateItems,
+  parentStateIsLoaded,
+}: SearchSectionProps) {
+  const [searhQuery, setSearchQuery] = useSearchQuery('query');
+  const [hasError, setHasError] = useState(false);
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
   };
 
-  sendItemsToParent = (items: ItemType[]) => {
-    this.props.parentStateItems(items);
+  const sendItemsToParent = (items: ItemType[]) => {
+    parentStateItems(items);
   };
-  sendIsLoadedToParent = (state: boolean) => {
-    this.props.parentStateIsLoaded(state);
+  const sendIsLoadedToParent = (state: boolean) => {
+    parentStateIsLoaded(state);
   };
 
-  render() {
-    if (this.state.hasError) throw new Error('Simulate Error!');
-    return (
-      <nav className="nav-bar">
-        <div className="logo">
-          <span role="img">🤟</span>
-          <h1>StarWars</h1>
-        </div>
-        <input
-          className="search"
-          autoFocus
-          type="text"
-          placeholder="Search by name..."
-          value={this.state.query}
-          onChange={(e) => {
-            this.setState({
-              query: e.target.value,
-            });
+  if (hasError) throw new Error('Simulate Error!');
+  return (
+    <nav className="nav-bar">
+      <div className="logo">
+        <span role="img">🤟</span>
+        <h1>StarWars</h1>
+      </div>
+
+      <input
+        className="search"
+        autoFocus
+        type="text"
+        placeholder="Search by name..."
+        value={searhQuery}
+        onChange={handleSearchChange}
+      />
+      <div className="buttons-box">
+        <Link
+          to={searhQuery ? `?page=1&search=${searhQuery}` : '?page=1'}
+          className="btn"
+          onClick={() => {
+            localStorage.setItem('query', searhQuery);
+            sendIsLoadedToParent(false);
+            fetch(`${URL}${searhQuery}`)
+              .then((res) => res.json())
+              .then((json) => {
+                sendItemsToParent(json.results);
+                sendIsLoadedToParent(true);
+              });
           }}
-        />
-        <div className="buttons-box">
-          <button
-            className="btn"
-            onClick={() => {
-              localStorage.setItem('query', this.state.query);
-              this.sendIsLoadedToParent(false);
-              fetch(URL + this.state.query)
-                .then((res) => res.json())
-                .then((json) => {
-                  this.sendItemsToParent(json.results);
-                  this.sendIsLoadedToParent(true);
-                  this.setState({
-                    items: json.results,
-                  });
-                });
-            }}
-          >
-            Search
-          </button>
-          <button
-            className="btn"
-            onClick={() => this.setState({ hasError: true })}
-          >
-            Get error
-          </button>
-        </div>
-      </nav>
-    );
-  }
+        >
+          Search
+        </Link>
+        <button className="btn" onClick={() => setHasError(true)}>
+          Get error
+        </button>
+      </div>
+    </nav>
+  );
 }
-
 export default SearchSection;
