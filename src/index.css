@@ -29,6 +29,12 @@ body {
   background-color: var(--color-background-900);
   padding: 2.4rem;
 }
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
 
 /* ******* */
 
@@ -119,6 +125,7 @@ body {
   background-color: var(--color-background-100);
   box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2);
   transition: all ease-in-out 3s;
+  cursor: pointer;
 }
 
 .item h2 {
@@ -181,4 +188,50 @@ body {
   margin-top: 5rem;
   font-size: 3.6rem;
   color: var(--color-text-select);
+}
+
+/* -------- */
+
+.error-box {
+  margin-top: 20vh;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-text-select);
+}
+.error-box h1 {
+  font-size: 5rem;
+}
+.error-box > * {
+  margin-bottom: 2rem;
+}
+
+.container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  column-gap: 2rem;
+  /* align-items: center; */
+}
+.container:nth-child(2) div {
+  position: sticky;
+  top: 20px;
+}
+.container:nth-child(1) {
+  flex: 2;
+}
+.container:nth-child(2) {
+  flex: auto;
+}
+.box {
+  flex: 1;
+  transition: all 3s ease-in-out;
+}
+
+.paginate {
+  margin-top: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  gap: 2rem;
 }
