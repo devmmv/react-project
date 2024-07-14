@@ -8,11 +8,9 @@ function Info() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    console.log('from useEffect Info', 'change homeWordLink');
     fetch(homeWordLink)
       .then((res) => res.json())
       .then((data) => {
-        console.log('data: ', data);
         setDataHomeWork(data);
         setIsLoaded(true);
       })
