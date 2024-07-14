@@ -124,7 +124,7 @@ a:active {
   border-radius: 0.9rem;
   background-color: var(--color-background-100);
   box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2);
-  transition: all ease-in-out 3s;
+  transition: all ease-in-out 1s;
   cursor: pointer;
 }
 
@@ -171,6 +171,7 @@ a:active {
 }
 
 .loader-text {
+  text-align: center;
   font-size: 5rem;
   font-weight: 100;
 }
@@ -210,8 +211,8 @@ a:active {
   align-items: stretch;
   justify-content: space-between;
   column-gap: 2rem;
-  /* align-items: center; */
 }
+
 .container:nth-child(2) div {
   position: sticky;
   top: 20px;
@@ -234,4 +235,13 @@ a:active {
   justify-content: center;
   height: 4rem;
   gap: 2rem;
+}
+.info {
+  position: sticky;
+  top: 3rem;
+}
+
+.info button {
+  background: var(--color-background-900);
+  opacity: 0.5;
 }

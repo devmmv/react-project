@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { Dispatch, useState } from 'react';
 import { ItemType } from '../types';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
 type ContextType = {
-  homeWord: string;
+  homeWordLink: string;
   name: string;
+  setIsOpenInfo: Dispatch<React.SetStateAction<boolean>>;
 };
 
 function DisplaySection() {
   const [isOpenInfo, setIsOpenInfo] = useState(false);
-  const [homeWord, setHomeWord] = useState('');
+  const [homeWordLink, setHomeWordLink] = useState('');
   const [name, setName] = useState('');
   const items = useOutletContext<ItemType[]>();
 
@@ -26,7 +27,7 @@ function DisplaySection() {
                   setIsOpenInfo(false);
                 } else {
                   setIsOpenInfo(true);
-                  setHomeWord(item.homeworld);
+                  setHomeWordLink(item.homeworld);
                   setName(item.name);
                 }
               }}
@@ -35,6 +36,7 @@ function DisplaySection() {
               <p className="item-description">
                 Gender:<span>{item.gender}</span>
                 Hair color:<span>{item.hair_color}</span>
+                <br />
                 Eye color:<span>{item.eye_color}</span>
                 Birth year:<span>{item.birth_year}</span>
               </p>
@@ -42,7 +44,11 @@ function DisplaySection() {
           ))}
         </ol>
         {isOpenInfo && (
-          <Outlet context={{ homeWord, name } satisfies ContextType} />
+          <Outlet
+            context={
+              { homeWordLink, name, setIsOpenInfo } satisfies ContextType
+            }
+          />
         )}
       </div>
     </>

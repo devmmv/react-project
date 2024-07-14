@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
-import { DataType } from '../hooks/usePaginate';
-type PaginationProps = {
-  data: DataType;
-  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { PaginationProps } from '../types';
+
 function Pagination({ data, setIsLoaded }: PaginationProps) {
   return (
     <div className="paginate">
