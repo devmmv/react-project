@@ -1,0 +1,247 @@
+:root {
+  --color-primary: #6741d9;
+  --color-primary-light: #7950f2;
+  --color-text: #dee2e6;
+  --color-text-dark: #adb5bd;
+  --color-text-select: #ffc824;
+  --color-background-100: #343a40;
+  --color-background-500: #2b3035;
+  --color-background-900: #212529;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-y: scroll;
+  scrollbar-color: var(--color-background-900) var(--color-background-100);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+  color: var(--color-text);
+  background-color: var(--color-background-900);
+  padding: 2.4rem;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
+/* ******* */
+
+.nav-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  height: 7.2rem;
+  padding: 0 3.2rem;
+  background-color: var(--color-primary);
+  border-radius: 0.9rem;
+}
+
+/* ******* */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.logo span {
+  font-size: 3.2rem;
+}
+
+.logo h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.search {
+  justify-self: center;
+  border: none;
+  padding: 1.1rem 1.6rem;
+  font-size: 1.8rem;
+  border-radius: 0.7rem;
+  width: 40rem;
+  transition: all 0.3s;
+  color: var(--color-text);
+  background-color: var(--color-primary-light);
+}
+
+.search::placeholder {
+  color: var(--color-text-dark);
+}
+
+.search:focus {
+  outline: none;
+  box-shadow: 0 2.4rem 2.4rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ******* */
+
+.buttons-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.8rem;
+}
+
+.btn {
+  margin-left: 2rem;
+  background-color: var(--color-primary-light);
+  color: var(--color-text-dark);
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.btn:hover {
+  color: var(--color-text-select);
+  opacity: 0.8;
+}
+
+/* ******* */
+
+.item {
+  list-style: none;
+  padding: 2.2rem 3.2rem 1.8rem 3.2rem;
+  margin: 2rem auto;
+  border-radius: 0.9rem;
+  background-color: var(--color-background-100);
+  box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2);
+  transition: all ease-in-out 1s;
+  cursor: pointer;
+}
+
+.item h2 {
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  color: rgb(235, 217, 25);
+  margin-bottom: 0.6rem;
+}
+
+.item-description {
+  font-size: 1.4rem;
+  font-weight: 100;
+  margin-left: 5rem;
+}
+
+.item-description span {
+  font-style: italic;
+  font-size: 2rem;
+  margin: 1rem;
+}
+
+/* ******* */
+
+.loader-box {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  width: 50px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-background-100);
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+
+.loader-text {
+  text-align: center;
+  font-size: 5rem;
+  font-weight: 100;
+}
+
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.error-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5rem;
+  font-size: 3.6rem;
+  color: var(--color-text-select);
+}
+
+/* -------- */
+
+.error-box {
+  margin-top: 20vh;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--color-text-select);
+}
+.error-box h1 {
+  font-size: 5rem;
+}
+.error-box > * {
+  margin-bottom: 2rem;
+}
+
+.container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  column-gap: 2rem;
+}
+
+.container:nth-child(2) div {
+  position: sticky;
+  top: 20px;
+}
+.container:nth-child(1) {
+  flex: 2;
+}
+.container:nth-child(2) {
+  flex: auto;
+}
+.box {
+  flex: 1;
+  transition: all 3s ease-in-out;
+}
+
+.paginate {
+  margin-top: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  gap: 2rem;
+}
+.info {
+  position: sticky;
+  top: 3rem;
+}
+
+.info button {
+  background: var(--color-background-900);
+  opacity: 0.5;
+}
