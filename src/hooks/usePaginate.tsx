@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { URLSearchParams } from 'url';
 import { ItemType } from '../types';
 
-type DataType = {
+export type DataType = {
   nextPage?: number;
   prevPage?: number;
   items: ItemType[];
