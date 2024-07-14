@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { URLSearchParams } from 'url';
 import { ItemType } from '../types';
+import { URL } from '../constants';
 
 export type DataType = {
   nextPage?: number;
@@ -14,7 +15,7 @@ export type DataType = {
 
   isLoaded: boolean;
 };
-function usePaginate(url: string, query: URLSearchParams) {
+function usePaginate(query: URLSearchParams) {
   const [data, setData] = useState<DataType>({
     nextPage: 0,
     prevPage: 0,
@@ -26,12 +27,14 @@ function usePaginate(url: string, query: URLSearchParams) {
     count: 0,
     maxPage: 1,
   });
+  const urlRef = useRef('');
+  urlRef.current = `${URL}?${query.toString()}`;
+
+  if (localStorage.getItem('query') && !query.toString())
+    urlRef.current = `${URL}?page=1&search=${localStorage.getItem('query')}`;
 
   useEffect(() => {
-    const fetchURL =
-      query.toString() && localStorage.getItem('query')
-        ? `${url}?${query.toString()}`
-        : `${url}?page=1&search=${localStorage.getItem('query')}`;
+    const fetchURL = urlRef.current;
 
     fetch(fetchURL)
       .then((res) => res.json())
@@ -47,9 +50,8 @@ function usePaginate(url: string, query: URLSearchParams) {
         });
       })
       .catch((err: Error) => console.error(err));
-  }, [data.pageQuery, query, url]);
+  }, [query]);
 
   return data;
 }
-
 export default usePaginate;

@@ -45,7 +45,7 @@ function SearchSection({
           onClick={() => {
             localStorage.setItem('query', searhQuery);
             sendIsLoadedToParent(false);
-            fetch(`${URL}${searhQuery}`)
+            fetch(`${URL}?page=1&search=${searhQuery}`)
               .then((res) => res.json())
               .then((json) => {
                 sendItemsToParent(json.results);

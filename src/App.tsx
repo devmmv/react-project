@@ -6,13 +6,13 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import usePaginate from './hooks/usePaginate';
 import Pagination from './components/Pagination';
 
-const u = 'https://swapi.dev/api/people/';
+// const u = 'https://swapi.dev/api/people/';
 function App() {
   const [items, setItems] = useState<ItemType[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [searchParams] = useSearchParams();
-  const data = usePaginate(u, searchParams);
+  const data = usePaginate(searchParams);
 
   useEffect(() => {
     setItems(data.items);
