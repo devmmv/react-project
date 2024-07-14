@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ItemType } from '../types';
 import { Outlet, useOutletContext } from 'react-router-dom';
 
@@ -12,11 +12,6 @@ function DisplaySection() {
   const [homeWord, setHomeWord] = useState('');
   const [name, setName] = useState('');
   const items = useOutletContext<ItemType[]>();
-
-  useEffect(() => {
-    console.log('is open section info? - ', isOpenInfo);
-    console.log('name be changed ', name);
-  }, [name, isOpenInfo]);
 
   return (
     <>
