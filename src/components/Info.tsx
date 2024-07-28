@@ -1,25 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useGetPlanetInfoQuery } from '../app/swApi';
 import { useOutletContext } from 'react-router-dom';
-import { DataHomeWorkType, InfoType } from '../types';
+import { InfoType } from '../types';
 
 function Info() {
-  const { homeWordLink, name, setIsOpenInfo } = useOutletContext<InfoType>();
-  const [dataHomeWork, setDataHomeWork] = useState<DataHomeWorkType>();
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { planetNumber, name, setIsOpenInfo } = useOutletContext<InfoType>();
+  const { data, isFetching } = useGetPlanetInfoQuery(planetNumber);
 
-  useEffect(() => {
-    fetch(homeWordLink)
-      .then((res) => res.json())
-      .then((data) => {
-        setDataHomeWork(data);
-        setIsLoaded(true);
-      })
-      .catch((err: Error) => console.error(err));
-  }, [homeWordLink]);
   return (
     <div className="item box">
       <div className="info">
-        {!isLoaded ? (
+        {isFetching ? (
           <h1 className="loader-text">Loading...</h1>
         ) : (
           <div>
@@ -29,33 +19,33 @@ function Info() {
                   <h1>Home World</h1>
                   <h2>{name}</h2>
                   <p>
-                    Planet name: <span>{dataHomeWork?.name}</span>
+                    Planet name: <span>{data?.name}</span>
                   </p>
                   <p>
-                    Climate: <span>{dataHomeWork?.climate}</span>
+                    Climate: <span>{data?.climate}</span>
                   </p>
                   <p>
-                    Population: <span>{dataHomeWork?.population}</span>
+                    Population: <span>{data?.population}</span>
                   </p>
                   <p>
-                    Diameter: <span>{dataHomeWork?.diameter}</span>
+                    Diameter: <span>{data?.diameter}</span>
                   </p>
                   <p>
-                    Surface water: <span>{dataHomeWork?.surface_water}</span>
+                    Surface water: <span>{data?.surface_water}</span>
                   </p>
                   <p>
-                    Terrain: <span>{dataHomeWork?.terrain}</span>
+                    Terrain: <span>{data?.terrain}</span>
                   </p>
 
                   <p>
-                    Gravity: <span>{dataHomeWork?.gravity}</span>
+                    Gravity: <span>{data?.gravity}</span>
                   </p>
                   <p>
-                    Orbital period: <span>{dataHomeWork?.orbital_period}</span>
+                    Orbital period: <span>{data?.orbital_period}</span>
                   </p>
                   <p>
                     Rotation periond:
-                    <span>{dataHomeWork?.rotation_period}</span>
+                    <span>{data?.rotation_period}</span>
                   </p>
                 </div>
               </div>
