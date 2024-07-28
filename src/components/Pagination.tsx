@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { PaginationProps } from '../types';
 
-function Pagination({ data, setIsLoaded }: PaginationProps) {
+function Pagination({ data }: PaginationProps) {
   return (
     <div className="paginate">
       <Link
-        onClick={() => setIsLoaded(false)}
         style={{
           fontSize: '3rem',
           pointerEvents: Number(data.prevPage) < 1 ? 'none' : 'auto',
@@ -22,7 +21,6 @@ function Pagination({ data, setIsLoaded }: PaginationProps) {
       </Link>
       {Array.from({ length: data.maxPage }).map((_, id) => (
         <Link
-          onClick={() => setIsLoaded(false)}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -45,7 +43,6 @@ function Pagination({ data, setIsLoaded }: PaginationProps) {
         </Link>
       ))}
       <Link
-        onClick={() => setIsLoaded(false)}
         style={{
           fontSize: '3rem',
           cursor: 'pointer',
