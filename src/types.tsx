@@ -55,20 +55,21 @@ export type InfoType = {
   setIsOpenInfo: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export type DataType = {
-  nextPage?: number;
-  prevPage?: number;
-  items: ItemType[];
-  pageQuery?: string | null;
-  searchQuery?: string | null;
-  query?: string;
-  count?: number;
-  maxPage: number;
+  count: number;
+  next: string;
+  previous: string | null;
+  results: ItemType[];
+};
 
-  isLoaded: boolean;
+export type PaginateType = {
+  nextPage: number;
+  prevPage: number;
+  count: number;
+  maxPage: number;
+  searchQuery: string | null;
 };
 export type PaginationProps = {
-  data: DataType;
-  setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+  paginateConfig: PaginateType;
 };
 export type ErrorResponse = {
   status: number;

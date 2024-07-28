@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ItemType } from '../types';
+import { DataType } from '../types';
 
 const baseUrl = 'https://swapi.dev/api/';
 
@@ -9,7 +9,7 @@ export const swApi = createApi({
     baseUrl,
   }),
   endpoints: (build) => ({
-    getPeoples: build.query<ItemType[], string>({
+    getPeoples: build.query<DataType, string>({
       query: (p: string) => `/people?${p}`,
     }),
     getPlanetInfo: build.query({

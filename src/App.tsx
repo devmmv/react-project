@@ -1,4 +1,3 @@
-import { ItemType } from './types';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import usePaginate from './hooks/usePaginate';
@@ -14,10 +13,10 @@ import { RootState } from './app/store/store';
 
 function App() {
   const [searchParams] = useSearchParams();
-  const { data: d = [], isFetching } = useGetPeoplesQuery(
+  const { data = { count: 0, results: '' }, isFetching } = useGetPeoplesQuery(
     searchParams.toString(),
   );
-  const data = usePaginate(searchParams, d.count);
+  const paginateConfig = usePaginate(searchParams, data.count);
   const [themeMode, setThemeMode] = useState('dark');
   const peoplesLength = useSelector((state: RootState) => state.people.length);
 
@@ -49,7 +48,7 @@ function App() {
               justifyContent: 'space-between',
             }}
           >
-            <Pagination data={data} />
+            <Pagination paginateConfig={paginateConfig} />
 
             <ThemeBtn />
           </div>
@@ -60,7 +59,7 @@ function App() {
             </div>
           ) : (
             <>
-              <Outlet context={d.results satisfies ItemType[]} />
+              <Outlet context={data.results} />
             </>
           )}
         </div>

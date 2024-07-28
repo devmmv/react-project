@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react';
 import { URLSearchParams } from 'url';
-
-type PaginateType = {
-  nextPage: number;
-  prevPage: number;
-  count: number;
-  maxPage: number;
-  searchQuery: string | null;
-};
+import { PaginateType } from '../types';
 
 function usePaginate(query: URLSearchParams, count: number) {
   const [data, setData] = useState<PaginateType>({
