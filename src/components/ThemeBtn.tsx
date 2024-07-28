@@ -8,7 +8,6 @@ function ThemeBtn() {
     const darkModeStatus = e.currentTarget.checked;
 
     if (darkModeStatus) {
-      console.log('forom onChangeBtn function');
       setDarkTheme();
     } else {
       setLightTheme();
