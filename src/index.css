@@ -1,6 +1,6 @@
 :root {
-  --color-primary: #6741d9;
-  --color-primary-light: #7950f2;
+  --color-primary: rgb(103, 65, 217);
+  --color-primary-light: rgb(121, 80, 242);
   --color-text: #dee2e6;
   --color-text-dark: #adb5bd;
   --color-text-select: #ffc824;
@@ -15,6 +15,21 @@
   box-sizing: border-box;
 }
 
+.dark {
+  /* background-color: var(--color-background-900); */
+  transition: all 0.4s ease-in-out;
+}
+.light {
+  background-color: var(--color-primary-light);
+  transition: all 0.4s ease-in-out;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: calc(100vh);
+}
 html {
   font-size: 62.5%;
   overflow-y: scroll;
@@ -24,6 +39,7 @@ html {
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  min-height: 100%;
 
   color: var(--color-text);
   background-color: var(--color-background-900);
@@ -46,6 +62,9 @@ a:active {
   padding: 0 3.2rem;
   background-color: var(--color-primary);
   border-radius: 0.9rem;
+}
+.light .nav-bar {
+  background-color: var(--color-background-100);
 }
 
 /* ******* */
@@ -73,7 +92,7 @@ a:active {
   font-size: 1.8rem;
   border-radius: 0.7rem;
   width: 40rem;
-  transition: all 0.3s;
+  transition: all 0.4s;
   color: var(--color-text);
   background-color: var(--color-primary-light);
 }
@@ -107,7 +126,7 @@ a:active {
   padding: 1rem 2rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.5s;
+  transition: all 0.4s;
 }
 
 .btn:hover {
@@ -124,8 +143,11 @@ a:active {
   border-radius: 0.9rem;
   background-color: var(--color-background-100);
   box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2);
-  transition: all ease-in-out 1s;
+  transition: all ease-in-out 0.4s;
   cursor: pointer;
+}
+.light .item {
+  background-color: var(--color-primary);
 }
 
 .item h2 {
@@ -225,7 +247,7 @@ a:active {
 }
 .box {
   flex: 1;
-  transition: all 3s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .paginate {
@@ -244,4 +266,155 @@ a:active {
 .info button {
   background: var(--color-background-900);
   opacity: 0.5;
+}
+
+/* ----------- */
+
+.theme-switch-wrapper {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+.theme-switch {
+  display: inline-block;
+  height: 3.5rem;
+  position: relative;
+  width: 60px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  background-color: var(--color-background-100);
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+}
+
+.slider:before {
+  background-color: var(--color-background-900);
+  bottom: 4px;
+  content: '';
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 26px;
+}
+.light .slider:before {
+  background-color: var(--color-primary);
+}
+
+input:checked + .slider {
+  /* background-color: var(--color-primary); */
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* ---------------- */
+
+.itemBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.itemBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.itemCheckbox {
+  width: 4rem;
+  aspect-ratio: 1/1;
+}
+.itemCheckbox:checked {
+  background-color: #ffc824;
+}
+/*  */
+
+.flyout {
+  display: flex;
+  align-items: center;
+  margin-right: 12rem;
+  position: sticky;
+  right: 2rem;
+  bottom: 2rem;
+  max-height: 20rem;
+  min-width: 36rem;
+  background-color: var(--color-primary);
+  transition: all 0.4s ease-in-out;
+  background: rgba(0, 0, 0, 0.3);
+}
+.flyout_counter {
+  flex: 1;
+  color: var(--color-text-select);
+  font-size: 10rem;
+  font-weight: lighter;
+}
+.flyout_buttons {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+
+  text-align: end;
+  flex: 1;
+}
+.flyout_buttons button {
+  background-color: var(--color-background-500);
+}
+
+/* --------------- */
+input[type='checkbox']:checked {
+  background: var(--color-background-900);
+  opacity: 0.5;
+  color: var(--color-text-select);
+  transition: all 0.4s ease-in-out;
+}
+
+input[type='checkbox'] {
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: 0;
+  background: var(--color-background-900);
+  opacity: 0.2;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  /* border: 1px solid white; */
+  color: white;
+}
+
+input[type='checkbox']:after {
+  content: ' ';
+  position: relative;
+  left: 40%;
+  top: 20%;
+  width: 15%;
+  height: 40%;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(50deg);
+  display: none;
+}
+
+input[type='checkbox']:checked:after {
+  display: block;
 }

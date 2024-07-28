@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './routes/error-page';
@@ -8,6 +7,7 @@ import DisplaySection from './components/DisplaySection';
 import Info from './components/Info';
 import { Provider } from 'react-redux';
 import store from './app/store/store';
+import './index.css';
 
 const router = createBrowserRouter([
   {

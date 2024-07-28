@@ -1,47 +1,71 @@
-import { useEffect, useState } from 'react';
-import SearchSection from './components/SearchSection';
 import { ItemType } from './types';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import usePaginate from './hooks/usePaginate';
 import Pagination from './components/Pagination';
+import { useGetPeoplesQuery } from './app/swApi';
+import { useEffect, useState } from 'react';
+import { ThemeProvider } from './contexts/theme';
+import ThemeBtn from './components/ThemeBtn';
+import SearchSection from './components/SearchSection';
+import { useSelector } from 'react-redux';
+import Flyout from './components/Flyout';
+import { RootState } from './app/store/store';
 
 function App() {
-  const [items, setItems] = useState<ItemType[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-
   const [searchParams] = useSearchParams();
-  const data = usePaginate(searchParams);
+  const { data: d = [], isFetching } = useGetPeoplesQuery(
+    searchParams.toString(),
+  );
+  const data = usePaginate(searchParams, d.count);
+  const [themeMode, setThemeMode] = useState('dark');
+  const peoplesLength = useSelector((state: RootState) => state.people.length);
+
+  const setDarkTheme = () => {
+    setThemeMode('dark');
+  };
+  const setLightTheme = () => {
+    setThemeMode('light');
+  };
 
   useEffect(() => {
-    setItems(data.items);
-    setIsLoaded(data.isLoaded);
-  }, [data.isLoaded, data.items]);
+    document.body.classList.remove('dark', 'light');
+    document.body.classList.add(themeMode);
+  }, [themeMode]);
 
-  const handleStateItems = (items: ItemType[]) => {
-    setItems(items);
-  };
-  const handleStateIsLoaded = (isLoaded: boolean) => {
-    setIsLoaded(isLoaded);
-  };
+  const htmlElement = document.querySelector('html');
+  htmlElement?.classList.remove('light', 'dark');
+  htmlElement?.classList.add('dark');
 
   return (
     <ErrorBoundary>
-      <SearchSection
-        parentStateItems={handleStateItems}
-        parentStateIsLoaded={handleStateIsLoaded}
-      />
-      <Pagination setIsLoaded={setIsLoaded} data={data} />
-      {!isLoaded ? (
-        <div className="loader-box">
-          <div className="loader"></div>
-          <span className="loader-text">Loading...</span>
+      <ThemeProvider value={{ themeMode, setLightTheme, setDarkTheme }}>
+        <div>
+          <SearchSection />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Pagination data={data} />
+
+            <ThemeBtn />
+          </div>
+          {isFetching ? (
+            <div className="loader-box">
+              <div className="loader"></div>
+              <span className="loader-text">Loading...</span>
+            </div>
+          ) : (
+            <>
+              <Outlet context={d.results satisfies ItemType[]} />
+            </>
+          )}
         </div>
-      ) : (
-        <>
-          <Outlet context={items satisfies ItemType[]} />
-        </>
-      )}
+        {peoplesLength && <Flyout />}
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }
