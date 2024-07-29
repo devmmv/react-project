@@ -50,7 +50,7 @@ export type DataHomeWorkType = {
   terrain: string;
 };
 export type InfoType = {
-  homeWordLink: string;
+  planetNumber: string;
   name: string;
   setIsOpenInfo: React.Dispatch<React.SetStateAction<boolean>>;
 };
