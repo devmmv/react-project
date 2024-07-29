@@ -23,7 +23,6 @@ vi.mock('react-router-dom', () => ({
 
 it('renders ListItems when items are available', async () => {
   render(<DisplaySection />);
-  screen.debug();
   const text = screen.getByText(/ListItems Component/i);
   expect(text).toBeInTheDocument();
 });
